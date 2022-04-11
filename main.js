@@ -51,69 +51,56 @@ function lfsr(){
     }
 }
 
-// if(arr.length == 2){
-//     for(i=0; i<20; i++){
-//         console.log(state.toString(2))
-//         newbit = ((state >> arr[0]) ^ (state >> arr[1])) & 1
-//         state = (state >> 1) | (newbit << arr[arr.length-1])  
-//     }     
-// }
-// if(arr.length > 2){
-//     for(i=0; i<20; i++){
-//         console.log(state.toString(2))
-//         newbit = (state >> arr[arr.length-1]-arr[0]) ^ (state >> arr[arr.length-1]-arr[1])
-//         for(j=2; j<arr.length; j++){
-//             newbit = newbit ^ (state >> arr[arr.length-1]-arr[j])
-//             if(j == arr.length - 1){
-//                 newbit = newbit & 1
-//             } 
-//         } 
-//         state = (state >> 1) | (newbit << arr[arr.length-1]) 
-//     }
-// }
 
 
+function text2Binary(string) {
+    return string.split('').map(function (char) {
+        return char.charCodeAt(0).toString(2);
+    }).join(' ');
+}
 
-// for(i=0; i<20; i++){
-    // let res = (state.toString(2))
-    // res = res.charAt(res.length - 1)
-//     console.log(res)
-//     newbit = ((state >> 3) ^ (state>>2) ^ state) & 1
-//     state = (state >> 1) | (newbit << 3)
-//     console.log(state.toString(2))
-// }
+function binaryToText(binary) {
 
-// function lfsr(){
-//     let power = document.getElementById("polynominal").value;
-//     let arr = power.split(',').map(Number);
-//     let newbit = 0
-//     arr = arr.sort();
-//     console.log(arr)
-//     let state = generateRandomBinary(arr[arr.length-1] + 1)
-//     state = Number(state)
-//     if(arr.length == 2){
-//         while(true){
-//             let res = (state.toString(2))
-//             res = res.charAt(res.length - 1)
-//             console.log(state.toString(2))
-//             newbit = ((state >> arr[0]) ^ (state >> arr[1])) & 1
-//             state = (state >> 1) | (newbit << arr[arr.length-1])  
-//         }     
-//     }
-//     if(arr.length > 2){
-//         while(true){
-//             let res = (state.toString(2))
-//             res = res.charAt(res.length - 1)
-//             document.getElementById("result").value += res;
-//             console.log(state.toString(2))
-//             newbit = (state >> arr[arr.length-1]-arr[0]) ^ (state >> arr[arr.length-1]-arr[1])
-//             for(j=2; j<arr.length; j++){
-//                 newbit = newbit ^ (state >> arr[arr.length-1]-arr[j])
-//                 if(j == arr.length - 1){
-//                     newbit = newbit & 1
-//                 } 
-//             } 
-//             state = (state >> 1) | (newbit << arr[arr.length-1]) 
-//         }
-//     }
-// }
+     binary = binary.split(' ');
+
+    return binary.map(elem => String.fromCharCode(parseInt(elem, 2))).join("");
+    }
+
+function Szyfrowanie(text,key){
+  let  text_bin =  text2Binary(text)
+  let arr = text_bin.split(' ')
+  for(let i = 0; i < arr.length; i++){
+      if(arr[i].length != 7){
+          arr[i] = "0" + arr[i]
+      }
+  }
+  text_bin = arr.join(' ')
+  let result = ''
+  let j = 0
+  let k = 0
+  for(i = 0; i< text_bin.length;i++){
+      if(text_bin[k] == ' '){
+        k++
+        result += ' '
+      }else{      
+      if(key.length == i){
+          j = 0
+      }
+      result += (key[j++] ^ text_bin[k++])
+      }
+  }
+  console.log("text " + text_bin)
+  console.log("key " + key)
+  console.log("result " + result)
+  console.log("converted " + binaryToText(result))
+  return result
+  
+}
+
+function deszyfrowanie(text, key){
+
+}
+
+Szyfrowanie("adam","01010101011001")
+Szyfrowanie("K<4_","01010101011001")
+
