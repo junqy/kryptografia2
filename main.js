@@ -66,41 +66,78 @@ function binaryToText(binary) {
     return binary.map(elem => String.fromCharCode(parseInt(elem, 2))).join("");
     }
 
-function Szyfrowanie(text,key){
-  let  text_bin =  text2Binary(text)
-  let arr = text_bin.split(' ')
-  for(let i = 0; i < arr.length; i++){
-      if(arr[i].length != 7){
-          arr[i] = "0" + arr[i]
-      }
+
+function Szyfrowanie(){
+    let text = document.getElementById("text").value;
+    let key = document.getElementById("key").value;
+    let  text_bin =  text2Binary(text)
+    let arr = text_bin.split(' ')
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i].length != 7){
+            arr[i] = "0" + arr[i]
+        }
+    }
+    text_bin = arr.join(' ')
+    let result = ''
+    let j = 0
+    let k = 0
+    for(i = 0; i< text_bin.length;i++){
+        if(text_bin[k] == ' '){
+          k++
+          result += ' '
+        }else{      
+        if(j == key.length){
+            j = 0
+        }
+        result += (key[j++] ^ text_bin[k++])
+        }
+    }
+    console.log("text " + text_bin)
+    console.log("key " + key)
+    console.log("result " + result)
+    document.getElementById("resultSCB").value = result
+    return result
+    
   }
-  text_bin = arr.join(' ')
-  let result = ''
-  let j = 0
-  let k = 0
+
+  function deszyfrowanie(){
+    let text_bin = document.getElementById("resultSCB").value;
+    let key = document.getElementById("key").value;
+    let j = 0;
+    let k = 0
+    let result = ''
   for(i = 0; i< text_bin.length;i++){
-      if(text_bin[k] == ' '){
-        k++
-        result += ' '
-      }else{      
-      if(key.length == i){
-          j = 0
-      }
-      result += (key[j++] ^ text_bin[k++])
-      }
-  }
-  console.log("text " + text_bin)
-  console.log("key " + key)
-  console.log("result " + result)
-  console.log("converted " + binaryToText(result))
-  return result
-  
+        if(text_bin[k] == ' '){
+          
+          k++
+          result += ' '
+        }else{     
+         
+        if(j== key.length){
+            j = 0
+        }
+        result += (key[j++] ^ text_bin[k++])
+        }
+    }
+      let converted_result = binaryToText(result)
+      console.log("deszyfr " + result)
+      console.log(converted_result)
+      document.getElementById("text").value = converted_result
+      return converted_result
+    
 }
 
-function deszyfrowanie(text, key){
 
+function text2Binary(string) {
+    return string.split('').map(function (char) {
+        return char.charCodeAt(0).toString(2);
+    }).join(' ');
 }
+function binaryToText(binary) {
 
-Szyfrowanie("adam","01010101011001")
-Szyfrowanie("K<4_","01010101011001")
+    binary = binary.split(' ');
+
+   return binary.map(elem => String.fromCharCode(parseInt(elem, 2))).join("");
+   }
+
 
