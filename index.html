@@ -41,5 +41,26 @@
         </div>
     </div>
     <script src="main.js"></script>
+    <div class="container">
+        <div class="inner">
+        <div class="mb-3">
+            <h1 for="formGroupExampleInput" class="form-label">Image Cipher</h1>
+            <p>Załaduj obraz oraz klucz wygenerowany w LFSR</p>
+            <p>Image Data</p>
+            <textarea class="form-label" id="textarea1" rows="5" cols="67"></textarea>
+            <input type="file" onchange="previewFile()"><br>
+            <img src="" height="200" alt="Image preview...">
+        </div>
+        <p><input type="text" id="key1" name="key" class="form-control" id="formGroupExampleInput" placeholder="Klucz"/></p>
+        <p><input name="btnEncrypt" id="btnEncrypt1" value="ENCRYPT v" onclick="Szyfrowanie1()" type="button" class="btn btn-primary"> 
+        <input name="btnDecrypt" id="btnDecrypt1" value="DECRYPT ^" onclick="deszyfrowanie1()" type="button" class="btn btn-primary"></p>
+        <div class="mb-3">
+            <h4 for="formGroupExampleInput" class="form-label">Result binary</h5>
+           
+            <textarea class="form-label" id="textarea" rows="20" cols="67"></textarea>
+        </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
